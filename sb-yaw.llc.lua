@@ -316,7 +316,7 @@ refs = {
     yawadd = find("Rage>Anti-Aim>Angles>Yaw add");
     yawaddint = find("Rage>Anti-Aim>Angles>Add");
     yawbase = find("Rage>Anti-aim>Angles>At fov target");
-    spin = find("Rage>Anti-Aim>Angles>Spin");
+ --   spin = find("Rage>Anti-Aim>Angles>Spin");
     spinrange = find("Rage>Anti-Aim>Angles>Spin range");
     spinspeed = find("Rage>Anti-Aim>Angles>Spin speed");
     jitter = find("Rage>Anti-Aim>Angles>Jitter");
@@ -392,7 +392,7 @@ function AABUILDER()
         refs.yawbase:set_bool(false)
     else
         refs.yawbase:set_bool(true)
-    refs.spin:set_bool(sspin:get_bool())
+    --refs.spin:set_bool(sspin:get_bool())
     refs.spinrange:set_int(sspinadd:get_int())
     refs.spinspeed:set_int(sspinrange:get_int())
     refs.jitter:set_bool(sjitter:get_bool())
@@ -413,7 +413,7 @@ end
         refs.yawbase:set_bool(false)
     else
         refs.yawbase:set_bool(true)
-    refs.spin:set_bool(mspin:get_bool())
+   -- refs.spin:set_bool(mspin:get_bool())
     refs.spinrange:set_int(mspinadd:get_int())
     refs.spinspeed:set_int(mspinrange:get_int())
     refs.jitter:set_bool(mjitter:get_bool())
@@ -434,7 +434,7 @@ if playerstate == 3 then
         refs.yawbase:set_bool(false)
     else
         refs.yawbase:set_bool(true)
-    refs.spin:set_bool(swspin:get_bool())
+   -- refs.spin:set_bool(swspin:get_bool())
     refs.spinrange:set_int(swspinadd:get_int())
     refs.spinspeed:set_int(swspinrange:get_int())
     refs.jitter:set_bool(swjitter:get_bool())
@@ -455,7 +455,7 @@ if playerstate == 4 then
         refs.yawbase:set_bool(false)
     else
         refs.yawbase:set_bool(true)
-    refs.spin:set_bool(aspin:get_bool())
+  --  refs.spin:set_bool(aspin:get_bool())
     refs.spinrange:set_int(aspinadd:get_int())
     refs.spinspeed:set_int(aspinrange:get_int())
     refs.jitter:set_bool(ajitter:get_bool())
@@ -476,7 +476,7 @@ if playerstate == 5 then
         refs.yawbase:set_bool(false)
     else
         refs.yawbase:set_bool(true)
-    refs.spin:set_bool(adspin:get_bool())
+ --   refs.spin:set_bool(adspin:get_bool())
     refs.spinrange:set_int(adspinadd:get_int())
     refs.spinspeed:set_int(adspinrange:get_int())
     refs.jitter:set_bool(adjitter:get_bool())
@@ -497,7 +497,7 @@ if playerstate == 6 then
         refs.yawbase:set_bool(false)
     else
         refs.yawbase:set_bool(true)
-    refs.spin:set_bool(dspin:get_bool())
+ --   refs.spin:set_bool(dspin:get_bool())
     refs.spinrange:set_int(dspinadd:get_int())
     refs.spinspeed:set_int(dspinrange:get_int())
     refs.jitter:set_bool(djitter:get_bool())

@@ -285,7 +285,15 @@ function on_menu_check()
     gui.set_visible("lua>tab b>Logs", tab == 4)
     gui.set_visible("lua>tab b>Script tag", tab == 4)
 end
+pixel = render.font_esp
+screen_center = {
+    w = 0,
+    h = 0
+}
 
+screen_size_x, screen_size_y = render.get_screen_size()
+x = screen_size_x / 2
+y = screen_size_y / 2
 resolvers = find("rage>aimbot>aimbot>resolver mode")
 function rollresolver()
     if rollres:get_bool() then

@@ -321,7 +321,7 @@ end
     jitter = find("Rage>Anti-Aim>Angles>Jitter");
     jitterrandom = find("Rage>Anti-Aim>Angles>Random");
     jitterrange = find("Rage>Anti-Aim>Angles>Jitter Range");
-    enabledesync = find("Rage>Anti-aim>Desync>Desync")
+    enabledesync = find("Rage>Anti-aim>Desync>Fake")
     desync = find("Rage>Anti-Aim>Desync>Fake amount");
     compAngle = find("Rage>Anti-Aim>Desync>Compensate angle");
     freestandFake = find("Rage>Anti-Aim>Desync>Freestand fake");

@@ -294,6 +294,8 @@ screen_center = {
 screen_size_x, screen_size_y = render.get_screen_size()
 x = screen_size_x / 2
 y = screen_size_y / 2
+verdana = render.create_font("verdana.ttf", 13, render.font_flag_outline)
+lp = entities.get_entity(engine.get_local_player())
 resolvers = find("rage>aimbot>aimbot>resolver mode")
 function rollresolver()
     if rollres:get_bool() then

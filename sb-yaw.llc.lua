@@ -311,12 +311,11 @@ end
 
 
 
-refs = {
     pitch = find("Rage>Anti-Aim>Angles>Pitch");
     yawadd = find("Rage>Anti-Aim>Angles>Yaw add");
     yawaddint = find("Rage>Anti-Aim>Angles>Add");
     yawbase = find("Rage>Anti-aim>Angles>At fov target");
- --   spin = find("Rage>Anti-Aim>Angles>Spin");
+    spin = find("Rage>Anti-Aim>Angles>Spin");
     spinrange = find("Rage>Anti-Aim>Angles>Spin range");
     spinspeed = find("Rage>Anti-Aim>Angles>Spin speed");
     jitter = find("Rage>Anti-Aim>Angles>Jitter");
@@ -327,7 +326,6 @@ refs = {
     compAngle = find("Rage>Anti-Aim>Desync>Compensate angle");
     freestandFake = find("Rage>Anti-Aim>Desync>Freestand fake");
     flipJittFake = find("Rage>Anti-Aim>Desync>Flip fake with jitter");
-};
 
 function get_local_speed()
  local_player = entities.get_entity(engine.get_local_player())
@@ -348,7 +346,7 @@ function get_local_speed()
     end
 end
 
-
+    playerstate = 0
 function AABUILDER()
  isSW = info.fatality.in_slowwalk
  local_player = entities.get_entity(engine.get_local_player())
@@ -359,7 +357,7 @@ function AABUILDER()
  cupic = bit.band(local_player:get_prop("m_fFlags"),bit.lshift(2, 0)) ~= 0
  flag = local_player:get_prop("m_fFlags")
 
-    playerstate = 0
+
 
     if inAir and cupic then
         playerstate = 5
@@ -385,129 +383,129 @@ function AABUILDER()
 
     --stand
     if playerstate == 1 then
-    refs.pitch:set_int(spitch:get_int())
-    refs.yaw:set_bool(syaw:get_bool())
-    refs.yawaddint:set_int(syawadd:get_int())
+    pitch:set_int(spitch:get_int())
+    yaw:set_bool(syaw:get_bool())
+    yawaddint:set_int(syawadd:get_int())
     if stype:get_int() == 0 then
-        refs.yawbase:set_bool(false)
+        yawbase:set_bool(false)
     else
-        refs.yawbase:set_bool(true)
-    --refs.spin:set_bool(sspin:get_bool())
-    refs.spinrange:set_int(sspinadd:get_int())
-    refs.spinspeed:set_int(sspinrange:get_int())
-    refs.jitter:set_bool(sjitter:get_bool())
-    refs.jitterrandom:set_bool(sjitterrandom:get_bool())
-    refs.jitterrange:set_int(sjitterrange:get_int())
-    refs.enabledesync:set_bool(sfake:get_bool())
-    refs.desync:set_int(sfakeam:get_int())
-    refs.compAngle:set_int(scompf:get_int())
-    refs.freestandFake:set_int(sfree:get_int())
-    refs.flipJittFake:set_bool(sfakejit:get_bool())
+        yawbase:set_bool(true)
+    spin:set_bool(sspin:get_bool())
+    spinrange:set_int(sspinadd:get_int())
+    spinspeed:set_int(sspinrange:get_int())
+    jitter:set_bool(sjitter:get_bool())
+    jitterrandom:set_bool(sjitterrandom:get_bool())
+    jitterrange:set_int(sjitterrange:get_int())
+    enabledesync:set_bool(sfake:get_bool())
+    desync:set_int(sfakeam:get_int())
+    compAngle:set_int(scompf:get_int())
+    freestandFake:set_int(sfree:get_int())
+    flipJittFake:set_bool(sfakejit:get_bool())
     end
 end
     if playerstate == 2 then
-    refs.pitch:set_int(mpitch:get_int())
-    refs.yaw:set_bool(myaw:get_bool())
-    refs.yawaddint:set_int(myawadd:get_int())
+    pitch:set_int(mpitch:get_int())
+    yaw:set_bool(myaw:get_bool())
+    yawaddint:set_int(myawadd:get_int())
     if mtype:get_int() == 0 then
-        refs.yawbase:set_bool(false)
+        yawbase:set_bool(false)
     else
-        refs.yawbase:set_bool(true)
-   -- refs.spin:set_bool(mspin:get_bool())
-    refs.spinrange:set_int(mspinadd:get_int())
-    refs.spinspeed:set_int(mspinrange:get_int())
-    refs.jitter:set_bool(mjitter:get_bool())
-    refs.jitterrandom:set_bool(mjitterrandom:get_bool())
-    refs.jitterrange:set_int(mjitterrange:get_int())
-    refs.enabledesync:set_bool(mfake:get_bool())
-    refs.desync:set_int(mfakeam:get_int())
-    refs.compAngle:set_int(mcompf:get_int())
-    refs.freestandFake:set_int(mfree:get_int())
-    refs.flipJittFake:set_bool(mfakejit:get_bool())
+        yawbase:set_bool(true)
+    spin:set_bool(mspin:get_bool())
+    spinrange:set_int(mspinadd:get_int())
+    spinspeed:set_int(mspinrange:get_int())
+    jitter:set_bool(mjitter:get_bool())
+    jitterrandom:set_bool(mjitterrandom:get_bool())
+    jitterrange:set_int(mjitterrange:get_int())
+    enabledesync:set_bool(mfake:get_bool())
+    desync:set_int(mfakeam:get_int())
+    compAngle:set_int(mcompf:get_int())
+    freestandFake:set_int(mfree:get_int())
+    flipJittFake:set_bool(mfakejit:get_bool())
     end
 end
 if playerstate == 3 then
-    refs.pitch:set_int(swpitch:get_int())
-    refs.yaw:set_bool(swyaw:get_bool())
-    refs.yawaddint:set_int(swyawadd:get_int())
+    pitch:set_int(swpitch:get_int())
+    yaw:set_bool(swyaw:get_bool())
+    yawaddint:set_int(swyawadd:get_int())
     if swtype:get_int() == 0 then
-        refs.yawbase:set_bool(false)
+        yawbase:set_bool(false)
     else
-        refs.yawbase:set_bool(true)
-   -- refs.spin:set_bool(swspin:get_bool())
-    refs.spinrange:set_int(swspinadd:get_int())
-    refs.spinspeed:set_int(swspinrange:get_int())
-    refs.jitter:set_bool(swjitter:get_bool())
-    refs.jitterrandom:set_bool(swjitterrandom:get_bool())
-    refs.jitterrange:set_int(swjitterrange:get_int())
-    refs.enabledesync:set_bool(swfake:get_bool())
-    refs.desync:set_int(swfakeam:get_int())
-    refs.compAngle:set_int(swcompf:get_int())
-    refs.freestandFake:set_int(swfree:get_int())
-    refs.flipJittFake:set_bool(swfakejit:get_bool())
+        yawbase:set_bool(true)
+    spin:set_bool(swspin:get_bool())
+    spinrange:set_int(swspinadd:get_int())
+    spinspeed:set_int(swspinrange:get_int())
+    jitter:set_bool(swjitter:get_bool())
+    jitterrandom:set_bool(swjitterrandom:get_bool())
+    jitterrange:set_int(swjitterrange:get_int())
+    enabledesync:set_bool(swfake:get_bool())
+    desync:set_int(swfakeam:get_int())
+    compAngle:set_int(swcompf:get_int())
+    freestandFake:set_int(swfree:get_int())
+    flipJittFake:set_bool(swfakejit:get_bool())
     end
 end
 if playerstate == 4 then
-    refs.pitch:set_int(apitch:get_int())
-    refs.yaw:set_bool(ayaw:get_bool())
-    refs.yawaddint:set_int(ayawadd:get_int())
+    pitch:set_int(apitch:get_int())
+    yaw:set_bool(ayaw:get_bool())
+    yawaddint:set_int(ayawadd:get_int())
     if atype:get_int() == 0 then
-        refs.yawbase:set_bool(false)
+        yawbase:set_bool(false)
     else
-        refs.yawbase:set_bool(true)
-  --  refs.spin:set_bool(aspin:get_bool())
-    refs.spinrange:set_int(aspinadd:get_int())
-    refs.spinspeed:set_int(aspinrange:get_int())
-    refs.jitter:set_bool(ajitter:get_bool())
-    refs.jitterrandom:set_bool(ajitterrandom:get_bool())
-    refs.jitterrange:set_int(ajitterrange:get_int())
-    refs.enabledesync:set_bool(afake:get_bool())
-    refs.desync:set_int(afakeam:get_int())
-    refs.compAngle:set_int(acompf:get_int())
-    refs.freestandFake:set_int(afree:get_int())
-    refs.flipJittFake:set_bool(afakejit:get_bool())
+        yawbase:set_bool(true)
+    spin:set_bool(aspin:get_bool())
+    spinrange:set_int(aspinadd:get_int())
+    spinspeed:set_int(aspinrange:get_int())
+    jitter:set_bool(ajitter:get_bool())
+    jitterrandom:set_bool(ajitterrandom:get_bool())
+    jitterrange:set_int(ajitterrange:get_int())
+    enabledesync:set_bool(afake:get_bool())
+    desync:set_int(afakeam:get_int())
+    compAngle:set_int(acompf:get_int())
+    freestandFake:set_int(afree:get_int())
+    flipJittFake:set_bool(afakejit:get_bool())
     end
 end
 if playerstate == 5 then
-    refs.pitch:set_int(adpitch:get_int())
-    refs.yaw:set_bool(adyaw:get_bool())
-    refs.yawaddint:set_int(adyawadd:get_int())
+    pitch:set_int(adpitch:get_int())
+    yaw:set_bool(adyaw:get_bool())
+    yawaddint:set_int(adyawadd:get_int())
     if adtype:get_int() == 0 then
-        refs.yawbase:set_bool(false)
+        yawbase:set_bool(false)
     else
-        refs.yawbase:set_bool(true)
- --   refs.spin:set_bool(adspin:get_bool())
-    refs.spinrange:set_int(adspinadd:get_int())
-    refs.spinspeed:set_int(adspinrange:get_int())
-    refs.jitter:set_bool(adjitter:get_bool())
-    refs.jitterrandom:set_bool(adjitterrandom:get_bool())
-    refs.jitterrange:set_int(adjitterrange:get_int())
-    refs.enabledesync:set_bool(adfake:get_bool())
-    refs.desync:set_int(adfakeam:get_int())
-    refs.compAngle:set_int(adcompf:get_int())
-    refs.freestandFake:set_int(adfree:get_int())
-    refs.flipJittFake:set_bool(adfakejit:get_bool())
+        yawbase:set_bool(true)
+    spin:set_bool(adspin:get_bool())
+    spinrange:set_int(adspinadd:get_int())
+    spinspeed:set_int(adspinrange:get_int())
+    jitter:set_bool(adjitter:get_bool())
+    jitterrandom:set_bool(adjitterrandom:get_bool())
+    jitterrange:set_int(adjitterrange:get_int())
+    enabledesync:set_bool(adfake:get_bool())
+    desync:set_int(adfakeam:get_int())
+    compAngle:set_int(adcompf:get_int())
+    freestandFake:set_int(adfree:get_int())
+    flipJittFake:set_bool(adfakejit:get_bool())
     end
 end
 if playerstate == 6 then
-    refs.pitch:set_int(dpitch:get_int())
-    refs.yaw:set_bool(dyaw:get_bool())
-    refs.yawaddint:set_int(dyawadd:get_int())
+    pitch:set_int(dpitch:get_int())
+    yaw:set_bool(dyaw:get_bool())
+    yawaddint:set_int(dyawadd:get_int())
     if dtype:get_int() == 0 then
-        refs.yawbase:set_bool(false)
+        yawbase:set_bool(false)
     else
-        refs.yawbase:set_bool(true)
- --   refs.spin:set_bool(dspin:get_bool())
-    refs.spinrange:set_int(dspinadd:get_int())
-    refs.spinspeed:set_int(dspinrange:get_int())
-    refs.jitter:set_bool(djitter:get_bool())
-    refs.jitterrandom:set_bool(djitterrandom:get_bool())
-    refs.jitterrange:set_int(djitterrange:get_int())
-    refs.enabledesync:set_bool(dfake:get_bool())
-    refs.desync:set_int(dfakeam:get_int())
-    refs.compAngle:set_int(dcompf:get_int())
-    refs.freestandFake:set_int(dfree:get_int())
-    refs.flipJittFake:set_bool(dfakejit:get_bool())
+        yawbase:set_bool(true)
+    spin:set_bool(dspin:get_bool())
+    spinrange:set_int(dspinadd:get_int())
+    spinspeed:set_int(dspinrange:get_int())
+    jitter:set_bool(djitter:get_bool())
+    jitterrandom:set_bool(djitterrandom:get_bool())
+    jitterrange:set_int(djitterrange:get_int())
+    enabledesync:set_bool(dfake:get_bool())
+    desync:set_int(dfakeam:get_int())
+    compAngle:set_int(dcompf:get_int())
+    freestandFake:set_int(dfree:get_int())
+    flipJittFake:set_bool(dfakejit:get_bool())
     end
 end
 end

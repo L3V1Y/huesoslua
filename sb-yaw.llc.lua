@@ -1,3 +1,4 @@
+
 --engine.exec("clear")
 utils.run_delayed(5, function()
 print("░██████╗  ██████╗░  ░░░░░░  ██╗░░░██╗  ░█████╗░  ░██╗░░░░░░░██╗")
@@ -294,8 +295,6 @@ screen_center = {
 screen_size_x, screen_size_y = render.get_screen_size()
 x = screen_size_x / 2
 y = screen_size_y / 2
-verdana = render.create_font("verdana.ttf", 13, render.font_flag_outline)
-lp = entities.get_entity(engine.get_local_player())
 resolvers = find("rage>aimbot>aimbot>resolver mode")
 function rollresolver()
     if rollres:get_bool() then
@@ -394,7 +393,7 @@ function AABUILDER()
     --stand
     if playerstate == 1 then
     pitch:set_int(spitch:get_int())
-    yaw:set_bool(syaw:get_bool())
+    yawadd:set_bool(syaw:get_bool())
     yawaddint:set_int(syawadd:get_int())
     if stype:get_int() == 0 then
         yawbase:set_bool(false)
@@ -415,7 +414,7 @@ function AABUILDER()
 end
     if playerstate == 2 then
     pitch:set_int(mpitch:get_int())
-    yaw:set_bool(myaw:get_bool())
+    yawadd:set_bool(myaw:get_bool())
     yawaddint:set_int(myawadd:get_int())
     if mtype:get_int() == 0 then
         yawbase:set_bool(false)
@@ -436,7 +435,7 @@ end
 end
 if playerstate == 3 then
     pitch:set_int(swpitch:get_int())
-    yaw:set_bool(swyaw:get_bool())
+    yawadd:set_bool(swyaw:get_bool())
     yawaddint:set_int(swyawadd:get_int())
     if swtype:get_int() == 0 then
         yawbase:set_bool(false)
@@ -457,7 +456,7 @@ if playerstate == 3 then
 end
 if playerstate == 4 then
     pitch:set_int(apitch:get_int())
-    yaw:set_bool(ayaw:get_bool())
+    yawadd:set_bool(ayaw:get_bool())
     yawaddint:set_int(ayawadd:get_int())
     if atype:get_int() == 0 then
         yawbase:set_bool(false)
@@ -478,7 +477,7 @@ if playerstate == 4 then
 end
 if playerstate == 5 then
     pitch:set_int(adpitch:get_int())
-    yaw:set_bool(adyaw:get_bool())
+    yawadd:set_bool(adyaw:get_bool())
     yawaddint:set_int(adyawadd:get_int())
     if adtype:get_int() == 0 then
         yawbase:set_bool(false)
@@ -499,7 +498,7 @@ if playerstate == 5 then
 end
 if playerstate == 6 then
     pitch:set_int(dpitch:get_int())
-    yaw:set_bool(dyaw:get_bool())
+    yawadd:set_bool(dyaw:get_bool())
     yawaddint:set_int(dyawadd:get_int())
     if dtype:get_int() == 0 then
         yawbase:set_bool(false)
@@ -530,4 +529,3 @@ function on_paint()
     rollresolver()
 end
      
- 

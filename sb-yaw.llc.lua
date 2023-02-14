@@ -353,7 +353,7 @@ utils.run_delayed(5, function()
     offset_scope = 0
     function indicators_render()
     center = render.align_center
-    io = 0
+    ay = 0
     lp = entities.get_entity(engine.get_local_player())
     if not lp then return end
     if not lp:is_alive() then return end

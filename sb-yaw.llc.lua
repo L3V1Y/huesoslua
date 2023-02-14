@@ -365,8 +365,8 @@ utils.run_delayed(5, function()
     if indicators:get_int() == 1 then
         alpha2 = math.floor(math.abs(math.sin(global_vars.realtime) * 1) * 255)
         lp = entities.get_entity(engine.get_local_player())
-        if not lp then return
-        if not lp:is_alive() then return
+        if not lp then return end
+        if not lp:is_alive() then return end
             maintext = "cyber.tech"
             buildtext = "[beta]"
             dttext = "DT"

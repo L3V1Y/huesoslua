@@ -378,7 +378,7 @@ utils.run_delayed(5, function()
             dmgkey = find("rage>aimbot>ssg08>scout>override"):get_bool()
             oskey = find("rage>aimbot>aimbot>hide shot"):get_bool()
             pakey = find("misc>movement>peek assist"):get_bool()
-            dakey = find("rage>aimbot>aimbot>taget dormant"):get_bool()
+            dakey = find("rage>aimbot>aimbot>target dormant"):get_bool()
 
             leftkey = find("rage>anti-aim>angles>left"):get_bool()
             rightkey = find("rage>anti-aim>angles>right"):get_bool()

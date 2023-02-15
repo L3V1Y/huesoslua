@@ -386,7 +386,7 @@ utils.run_delayed(5, function()
             end
             render.text(pixel, x, y + 20, maintext, render.color(255,255, 255, 255), center)
             render.text(pixel, x, y - 10, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2), center)
-            if scoped then
+            elseif scoped then
                 render.text(pixel, x, y + 20, maintext, render.color(255,255, 255, 255))
                 render.text(pixel, x, y - 10, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2))
             end

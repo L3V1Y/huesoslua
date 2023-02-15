@@ -384,17 +384,17 @@ utils.run_delayed(5, function()
             rightkey = find("rage>anti-aim>angles>right"):get_bool()
             if leftkey or rightkey then maintext = "manual" or "cyber.tech"
             end
-            render.text(pixel, 0, y + 20, maintext, render.color(255,255, 255, 255), center)
-            render.text(pixel, 0, y - 10, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2), center)
+            render.text(pixel, x, y + 20, maintext, render.color(255,255, 255, 255), center)
+            render.text(pixel, x, y - 10, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2), center)
             if scoped then
                 render.text(pixel, x, y + 20, maintext, render.color(255,255, 255, 255))
                 render.text(pixel, x, y - 10, text2, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2))
             end
             if dtkey and info.fatality.can_fastfire and not scoped then
-                render.text(pixel, 0, y + 30+ay, dttext, render.color(200, 250, 200, 255), center)
+                render.text(pixel, x, y + 30+ay, dttext, render.color(200, 250, 200, 255), center)
                 ay = ay + 10
             else if dtkey and not info.fatality.can_fastfire and not scoped then
-                    render.text(pixel, 0, y + 30+ay, dttext, render.color(255, 0, 0, 255), center)
+                    render.text(pixel, x, y + 30+ay, dttext, render.color(255, 0, 0, 255), center)
                     ay = ay + 10
             else if dtkey and info.fatality.can_fastfire and scoped then
                 render.text(pixel, x, y + 30+ay, dttext, render.color(200, 250, 200, 255))
@@ -408,7 +408,7 @@ utils.run_delayed(5, function()
             end
         end
         if oskey and not scoped then
-        render.text(pixel, 0 , y + 30+ay, ostext, render.color(255, 0, 0, 255), center)
+        render.text(pixel, x , y + 30+ay, ostext, render.color(255, 0, 0, 255), center)
         ay = ay + 10
     else if oskey and scoped then
     render.text(pixel, x, y + 30+ay, ostext, render.color(200, 250, 200, 255))
@@ -416,7 +416,7 @@ utils.run_delayed(5, function()
     end
 end
     if dmgkey and not scoped then
-        render.text(pixel, 0 , y + 30+ay, dmgtext, render.color(255, 0, 0, 255), center)
+        render.text(pixel, x , y + 30+ay, dmgtext, render.color(255, 0, 0, 255), center)
         ay = ay + 10
     else if dmgkey and scoped then
     render.text(pixel, x, y + 30+ay, dmgtext, render.color(200, 250, 200, 255))
@@ -424,7 +424,7 @@ end
     end
 end
 if dakey and not scoped then
-    render.text(pixel, 0 , y + 30+ay, datext, render.color(255, 0, 0, 255), center)
+    render.text(pixel, x , y + 30+ay, datext, render.color(255, 0, 0, 255), center)
     ay = ay + 10
 else if dakey and scoped then
 render.text(pixel, x, y + 30+ay, datext, render.color(200, 250, 200, 255))
@@ -432,7 +432,7 @@ ay = ay + 10
 end
 end
 if pakey and not scoped then
-    render.text(pixel, 0 , y + 30+ay, aptext, render.color(255, 0, 0, 255), center)
+    render.text(pixel, x , y + 30+ay, aptext, render.color(255, 0, 0, 255), center)
     ay = ay + 10
 else if pakey and scoped then
 render.text(pixel, x, y + 30+ay, aptext, render.color(200, 250, 200, 255))

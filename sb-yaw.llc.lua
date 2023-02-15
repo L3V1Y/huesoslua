@@ -390,6 +390,7 @@ utils.run_delayed(5, function()
                 render.text(pixel, x, y + 20, maintext, render.color(255,255, 255, 255))
                 render.text(pixel, x, y - 10, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2))
             end
+end
             if dtkey and info.fatality.can_fastfire and not scoped then
                 render.text(pixel, x, y + 30+ay, dttext, render.color(200, 250, 200, 255), center)
                 ay = ay + 10

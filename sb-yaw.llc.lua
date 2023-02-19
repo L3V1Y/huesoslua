@@ -380,7 +380,7 @@ function lagcomp()
 if brlc:get_bool() then
     if dt then
     if playerstate == 4 or playerstate == 5 then
-defensive:set_bool(global_vars.tickcount 4 > 2 and true or false)
+defensive:set_bool(global_vars.tickcount % 4 > 2 and true or false)
     else 
         defensivecache:set_bool(defensivecache)
 end

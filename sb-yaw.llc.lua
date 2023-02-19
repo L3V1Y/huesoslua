@@ -136,7 +136,7 @@ utils.run_delayed(5, function()
     dfree = cmb("[D] Freestand fake", "lua>tab b", {"None", "Normal", "Opposite"})
     dfakejit = cb("[D] Flip fake with jitter", "lua>tab b")
     --visuals
-    indicators = cmb("Indicators type", "lua>tab b", {"-", "Pixilized"})
+    indicators = cmb("Indicators type", "lua>tab b", {"Pixel", "None"})
     colorcb = cb("Color", "lua>tab b")
     color = cp("lua>tab b>Color", true)
     sideind, mark = mc("Other features", "lua>tab b", {"Side indicators", "Script watermark"})
@@ -385,7 +385,7 @@ utils.run_delayed(5, function()
         return Value < Min and Min or (Value > Max and Max or Value)
     end
     offset_scope = 0
-    if indicators:get_int() == 1 then
+    if indicators:get_int() == 0 then
         alpha2 = math.floor(math.abs(math.sin(global_vars.realtime) * 1) * 255)
             maintext = "sb-yaw"
             buildtext = ""--"[beta]"
@@ -424,27 +424,27 @@ utils.run_delayed(5, function()
            if playerstate == 1 and not scoped then
             render.text(pixel, x, y + 30, sttext, render.color(255,255, 255, 255), center)
             elseif playerstate == 2 and not scoped then
-             render.text(pixel, x, y + 30, mtext, render.color(255,255, 255, 255), center)
+             render.text(pixel, x, y + 30, mtext, render.color(255,255, 255, 255), render.align_center)
             elseif playerstate == 3 and not scoped then
-            render.text(pixel, x, y + 30, swtext, render.color(255,255, 255, 255), center)
+            render.text(pixel, x, y + 30, swtext, render.color(255,255, 255, 255), render.align_center)
             elseif playerstate == 4 and not scoped then
-            render.text(pixel, x, y + 30, atext, render.color(255,255, 255, 255), center)
+            render.text(pixel, x, y + 30, atext, render.color(255,255, 255, 255), render.align_center)
             elseif playerstate == 5 and not scoped then
-            render.text(pixel, x, y + 30, adtext, render.color(255,255, 255, 255), center)
+            render.text(pixel, x, y + 30, adtext, render.color(255,255, 255, 255), render.align_center)
             elseif playerstate == 6 and not scoped then
-            render.text(pixel, x, y + 30, dtext, render.color(255,255, 255, 255), center)
+            render.text(pixel, x, y + 30, dtext, render.color(255,255, 255, 255), render.align_center)
             elseif playerstate == 1 and scoped then
-                render.text(pixel, x+18, y + 30, sttext, render.color(255,255, 255, 255), center)
+                render.text(pixel, x+18, y + 30, sttext, render.color(255,255, 255, 255), render.align_center)
                 elseif playerstate == 2 and scoped then
-                 render.text(pixel, x+20, y + 30, mtext, render.color(255,255, 255, 255), center)
+                 render.text(pixel, x+20, y + 30, mtext, render.color(255,255, 255, 255), render.align_center)
                 elseif playerstate == 3 and scoped then
-                render.text(pixel, x+16, y + 30, swtext, render.color(255,255, 255, 255), center)
+                render.text(pixel, x+16, y + 30, swtext, render.color(255,255, 255, 255), render.align_center)
                 elseif playerstate == 4 and scoped then
-                render.text(pixel, x+16, y + 30, atext, render.color(255,255, 255, 255), center)
+                render.text(pixel, x+16, y + 30, atext, render.color(255,255, 255, 255), render.align_center)
                 elseif playerstate == 5 and scoped then
-                render.text(pixel, x+28, y + 30, adtext, render.color(255,255, 255, 255), center)
+                render.text(pixel, x+28, y + 30, adtext, render.color(255,255, 255, 255), render.align_center)
                 elseif playerstate == 6 and scoped then
-                render.text(pixel, x+16, y + 30, dtext, render.color(255,255, 255, 255), center)
+                render.text(pixel, x+16, y + 30, dtext, render.color(255,255, 255, 255), render.align_center)
             end
 
 

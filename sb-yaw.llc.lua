@@ -27,6 +27,7 @@ utils.run_delayed(5, function()
     --menu elements
     sb_menu = cmb("[S B - Y A W]", "lua>tab a", {"Credits", "Rage", "Anti-hit sys", "Visuals", "Misc"})
     --rage elements
+    brlc = cb("Break lagcomp in air", "lua>tab b")
     rollres = cb("Roll resolver on key", "lua>tab b")
         rollkey = kb("lua>tab b>Roll resolver on key")
     OSFIXC = cb("Enable OS-AA Enchancer", "lua>tab b")
@@ -180,6 +181,7 @@ utils.run_delayed(5, function()
         DFC = dfake:get_bool()
     
         gui.set_visible("lua>tab b>Roll resolver on key", tab == 1)
+        gui.set_visible("lua>tab b>Break lagcomp in air", tab == 1)
         gui.set_visible("lua>tab b>Enable OS-AA Enchancer", tab == 1)
         gui.set_visible("lua>tab b>OS-AA Types", tab == 1 and FLC)
         --
@@ -371,8 +373,21 @@ utils.run_delayed(5, function()
             end
         end
     end
-
-
+    dt = find("rage>aimbot>aimbot>double tap"):get_bool()
+function lagcomp()
+    defensive = find("rage>aimbot>aimbot>extend peek")
+    defensivecache = find("rage>aimbot>aimbot>extend peek"):get_bool()
+if brlc:get_bool() then
+    if dt then
+    if playerstate == 4 or playerstate == 5 then
+defensive:set_bool(global_vars.tickcount 4 > 2 and true or false)
+    else 
+        defensivecache:set_bool(defensivecache)
+end
+end
+end
+end
+end
     offset_scope = 0
     function indicators_render()
     center = render.align_center
@@ -826,4 +841,5 @@ end
     end
  function on_shutdown()
         limit:set_int(cache.backup)
+        defensivecache:set_bool(defensivecache)
 end

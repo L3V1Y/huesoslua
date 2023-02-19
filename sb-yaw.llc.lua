@@ -136,7 +136,7 @@ utils.run_delayed(5, function()
     dfree = cmb("[D] Freestand fake", "lua>tab b", {"None", "Normal", "Opposite"})
     dfakejit = cb("[D] Flip fake with jitter", "lua>tab b")
     --visuals
-    indicators = cmb("Indicators type", "lua>tab b", {"-", "Pixilized", "Re-newed"})
+    indicators = cmb("Indicators type", "lua>tab b", {"-", "Pixilized"})
     colorcb = cb("Color", "lua>tab b")
     color = cp("lua>tab b>Color", true)
     sideind, mark = mc("Other features", "lua>tab b", {"Side indicators", "Script watermark"})
@@ -227,7 +227,7 @@ utils.run_delayed(5, function()
         gui.set_visible("lua>tab b>[A] Jitter", tab == 2 and aatab == 2)
         gui.set_visible("lua>tab b>[A] Jitter random", tab == 2 and aatab == 2 and AJC)
         gui.set_visible("lua>tab b>[A] Jitter range", tab == 2 and aatab == 2 and AJC)
-        gui.set_visible("lua>tab b>[A] Fake", tab == 2 and aatab == 1)
+        gui.set_visible("lua>tab b>[A] Fake", tab == 2 and aatab == 2)
         gui.set_visible("lua>tab b>[A] Fake amount", tab == 2 and aatab == 2 and AFC)
         gui.set_visible("lua>tab b>[A] Compensate fake", tab == 2 and aatab == 2 and AFC)
         gui.set_visible("lua>tab b>[A] Freestand fake", tab == 2 and aatab == 2 and AFC)
@@ -243,7 +243,7 @@ utils.run_delayed(5, function()
         gui.set_visible("lua>tab b>[A+D] Jitter", tab == 2 and aatab == 3)
         gui.set_visible("lua>tab b>[A+D] Jitter random", tab == 2 and aatab == 3 and ADJC)
         gui.set_visible("lua>tab b>[A+D] Jitter range", tab == 2 and aatab == 3 and ADJC)
-        gui.set_visible("lua>tab b>[A+D] Fake", tab == 2 and aatab == 1)
+        gui.set_visible("lua>tab b>[A+D] Fake", tab == 2 and aatab == 3)
         gui.set_visible("lua>tab b>[A+D] Fake amount", tab == 2 and aatab == 3 and ADFC)
         gui.set_visible("lua>tab b>[A+D] Compensate fake", tab == 2 and aatab == 3 and ADFC)
         gui.set_visible("lua>tab b>[A+D] Freestand fake", tab == 2 and aatab == 3 and ADFC)
@@ -259,7 +259,7 @@ utils.run_delayed(5, function()
         gui.set_visible("lua>tab b>[SW] Jitter", tab == 2 and aatab == 4)
         gui.set_visible("lua>tab b>[SW] Jitter random", tab == 2 and aatab == 4 and SWJC)
         gui.set_visible("lua>tab b>[SW] Jitter range", tab == 2 and aatab == 4 and SWJC)
-        gui.set_visible("lua>tab b>[SW] Fake", tab == 2 and aatab == 1)
+        gui.set_visible("lua>tab b>[SW] Fake", tab == 2 and aatab == 4)
         gui.set_visible("lua>tab b>[SW] Fake amount", tab == 2 and aatab == 4 and SWFC)
         gui.set_visible("lua>tab b>[SW] Compensate fake", tab == 2 and aatab == 4 and SWFC)
         gui.set_visible("lua>tab b>[SW] Freestand fake", tab == 2 and aatab == 4 and SWFC)
@@ -289,6 +289,7 @@ utils.run_delayed(5, function()
         gui.set_visible("lua>tab b>Script tag", tab == 4)
     end
     pixel = render.font_esp
+    verdana = render.create_font("verdana.ttf", 12)--, render.font_flag_shadow)
     screen_center = {
         w = 0,
         h = 0
@@ -301,13 +302,13 @@ utils.run_delayed(5, function()
     function rollresolver()
         if rollres:get_bool() then
             resolvers:set_int(0)
-            render.text(render.font_indicator, 10, y + 110 , "ROLLRES", render.color(5,150,195,255), render.align_left, render.align_center)
+            render.text(render.font_indicator, 10, y + 75 , "ROLLRES", render.color(5,150,195,255), render.align_left, render.align_center)
         else
             resolvers:set_int(1)
-            render.text(render.font_indicator, 10, y + 110 , "ROLLRES", render.color(5,150,195,0), render.align_left, render.align_center)
+            render.text(render.font_indicator, 10, y + 75 , "ROLLRES", render.color(5,150,195,0), render.align_left, render.align_center)
         end
     end
-    local function animation(check, name, value, speed) 
+    function animation(check, name, value, speed) 
         if check then 
             return name + (value - name) * global_vars.frametime * speed / 1.5
         else 
@@ -349,6 +350,28 @@ utils.run_delayed(5, function()
     
         return value
     end
+    if inAir and cupic then
+        playerstate = 5
+    else
+        if inAir then
+            playerstate = 4
+        else
+            if isSW then
+                playerstate = 3
+            else
+                if cupic then
+                    playerstate = 6
+                else
+                    if still and not cupic then
+                        playerstate = 1
+                    elseif not still then
+                        playerstate = 2
+                    end
+                end
+            end
+        end
+    end
+
 
     offset_scope = 0
     function indicators_render()
@@ -358,22 +381,28 @@ utils.run_delayed(5, function()
     if not lp then return end
     if not lp:is_alive() then return end
     scoped = lp:get_prop("m_bIsScoped")
-    offset_scope = animation(scoped, offset_scope, 25, 10)
     function Clamp(Value, Min, Max)
         return Value < Min and Min or (Value > Max and Max or Value)
     end
+    offset_scope = 0
     if indicators:get_int() == 1 then
         alpha2 = math.floor(math.abs(math.sin(global_vars.realtime) * 1) * 255)
-            maintext = "cyber.tech"
-            buildtext = "[beta]"
-            dttext = "DT"
-            dmgtext = "damage"
-            ostext = "OS"
-            aptext = "PA"
+            maintext = "sb-yaw"
+            buildtext = ""--"[beta]"
+            dttext = "RAPID"
+            dmgtext = "DMG"
+            ostext = "HIDE"
+            aptext = "PEEK"
             datext = "DA"
+            sttext = "-stand-"
+            mtext = "-moving-"
+            swtext = "-slow-"
+            dtext = "-duck-"
+            atext = "-aero-"
+            adtext = "-aero-duck-"
+            
 
             --for texts
-
             dtkey = find("rage>aimbot>aimbot>double tap"):get_bool()
             dmgkey = find("rage>aimbot>ssg08>scout>override"):get_bool()
             oskey = find("rage>aimbot>aimbot>hide shot"):get_bool()
@@ -384,72 +413,140 @@ utils.run_delayed(5, function()
             rightkey = find("rage>anti-aim>angles>right"):get_bool()
             if leftkey or rightkey then maintext = "manual" or "cyber.tech"
             end
-            render.text(pixel, x, y + 20, maintext, render.color(255,255, 255, 255), center)
-            render.text(pixel, x, y - 10, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2), center)
-            elseif scoped then
-                render.text(pixel, x, y + 20, maintext, render.color(255,255, 255, 255))
-                render.text(pixel, x, y - 10, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2))
+            if not scoped then
+         render.text(pixel, x, y + 20, maintext, render.color(255,255, 255, 255), center)
+            render.text(pixel, x, y - 25, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2), center)
+        elseif scoped then
+                render.text(pixel, x+3, y + 20, maintext, render.color(255,255, 255, 255))
+                render.text(pixel, x+ 3, y - 25, buildtext, render.color(color:get_color().r, color:get_color().g, color:get_color().b, alpha2))
             end
-end
+        end
+           if playerstate == 1 and not scoped then
+            render.text(pixel, x, y + 30, sttext, render.color(255,255, 255, 255), center)
+            elseif playerstate == 2 and not scoped then
+             render.text(pixel, x, y + 30, mtext, render.color(255,255, 255, 255), center)
+            elseif playerstate == 3 and not scoped then
+            render.text(pixel, x, y + 30, swtext, render.color(255,255, 255, 255), center)
+            elseif playerstate == 4 and not scoped then
+            render.text(pixel, x, y + 30, atext, render.color(255,255, 255, 255), center)
+            elseif playerstate == 5 and not scoped then
+            render.text(pixel, x, y + 30, adtext, render.color(255,255, 255, 255), center)
+            elseif playerstate == 6 and not scoped then
+            render.text(pixel, x, y + 30, dtext, render.color(255,255, 255, 255), center)
+            elseif playerstate == 1 and scoped then
+                render.text(pixel, x+18, y + 30, sttext, render.color(255,255, 255, 255), center)
+                elseif playerstate == 2 and scoped then
+                 render.text(pixel, x+20, y + 30, mtext, render.color(255,255, 255, 255), center)
+                elseif playerstate == 3 and scoped then
+                render.text(pixel, x+16, y + 30, swtext, render.color(255,255, 255, 255), center)
+                elseif playerstate == 4 and scoped then
+                render.text(pixel, x+16, y + 30, atext, render.color(255,255, 255, 255), center)
+                elseif playerstate == 5 and scoped then
+                render.text(pixel, x+28, y + 30, adtext, render.color(255,255, 255, 255), center)
+                elseif playerstate == 6 and scoped then
+                render.text(pixel, x+16, y + 30, dtext, render.color(255,255, 255, 255), center)
+            end
+
+
+
+
+
+
+
             if dtkey and info.fatality.can_fastfire and not scoped then
-                render.text(pixel, x, y + 30+ay, dttext, render.color(200, 250, 200, 255), center)
+                render.text(pixel, x, y + 40+ay, dttext, render.color(150, 255, 122, 255), center)
                 ay = ay + 10
             else if dtkey and not info.fatality.can_fastfire and not scoped then
-                    render.text(pixel, x, y + 30+ay, dttext, render.color(255, 0, 0, 255), center)
+                    render.text(pixel, x, y + 40+ay, dttext, render.color(255, 100, 100, 255), center)
                     ay = ay + 10
             else if dtkey and info.fatality.can_fastfire and scoped then
-                render.text(pixel, x, y + 30+ay, dttext, render.color(200, 250, 200, 255))
+                render.text(pixel, x+3, y + 40+ay, dttext, render.color(150, 255, 122, 255))
                 ay = ay + 10
             else
                 if dtkey and not info.fatality.can_fastfire and scoped then
-                    render.text(pixel, x, y + 30+ay, dttext, render.color(255, 0, 0, 255))
+                    render.text(pixel, x+3, y + 40+ay, dttext, render.color(255, 100, 100, 255))
                     ay = ay + 10
                 end
                 end
             end
         end
         if oskey and not scoped then
-        render.text(pixel, x , y + 30+ay, ostext, render.color(255, 0, 0, 255), center)
+        render.text(pixel, x , y + 40+ay, ostext, render.color(255, 255, 255, 255), center)
         ay = ay + 10
     else if oskey and scoped then
-    render.text(pixel, x, y + 30+ay, ostext, render.color(200, 250, 200, 255))
+    render.text(pixel, x+3, y + 40+ay, ostext, render.color(200, 250, 200, 255))
     ay = ay + 10
     end
 end
     if dmgkey and not scoped then
-        render.text(pixel, x , y + 30+ay, dmgtext, render.color(255, 0, 0, 255), center)
+        render.text(pixel, x , y + 40+ay, dmgtext, render.color(200, 200, 200, 255), center)
         ay = ay + 10
     else if dmgkey and scoped then
-    render.text(pixel, x, y + 30+ay, dmgtext, render.color(200, 250, 200, 255))
+    render.text(pixel, x+3, y + 40+ay, dmgtext, render.color(200, 200, 200, 255))
     ay = ay + 10
     end
 end
-if dakey and not scoped then
-    render.text(pixel, x , y + 30+ay, datext, render.color(255, 0, 0, 255), center)
-    ay = ay + 10
-else if dakey and scoped then
-render.text(pixel, x, y + 30+ay, datext, render.color(200, 250, 200, 255))
-ay = ay + 10
-end
-end
 if pakey and not scoped then
-    render.text(pixel, x , y + 30+ay, aptext, render.color(255, 0, 0, 255), center)
+    render.text(pixel, x , y + 40+ay, aptext, render.color(233, 255, 233, 255), center)
     ay = ay + 10
 else if pakey and scoped then
-render.text(pixel, x, y + 30+ay, aptext, render.color(200, 250, 200, 255))
+render.text(pixel, x+3, y + 40+ay, aptext, render.color(233, 255, 233, 255))
 ay = ay + 10
 end
 end
+end
 
 
+    
+    io = 0
+    function sideindicator()
+        dttkey = find("rage>aimbot>aimbot>Double tap"):get_bool()
+        if sideind:get_bool() then
+            if info.fatality.can_fastfire and dttkey then
+            render.text(render.font_indicator, 10, y + 115 , "DT", render.color(255, 255, 255, 255), render.align_left, render.align_center)
+            elseif not info.fatality.can_fastfire and dttkey then
+                render.text(render.font_indicator, 10, y + 115 , "DT", render.color(255, 0, 0, 255), render.align_left, render.align_center)
+        end
+    end
+end
+    
+    
+old_time = 0;
+animation = {
+    "⚔ ",
+    "⚔ s",
+    "⚔ sb",
+    "⚔ sb ",
+    "⚔ sb -",
+    "⚔ sb - ",
+    "⚔ sb - y",
+    "⚔ sb - ya",
+    "⚔ sb - yaw",
+    "⚔ sb - yaw",
+    "⚔ sb - yaw",
+    "⚔ sb - ya",
+    "⚔ sb - y",
+    "⚔ sb - ",
+    "⚔ sb -",
+    "⚔ sb -",
+    "⚔ sb ",
+    "⚔ sb",
+    "⚔ s",
+    "⚔",  
+}
 
-    
-    
-    
-    
-    
-    
-    
+--clantag menu element
+function CT()
+    if tag:get_bool() then
+        local defaultct = find("misc>various>clan tag")
+        local realtime = math.floor((global_vars.realtime) * 1.725)
+        if old_time ~= realtime then
+            utils.set_clan_tag(animation[realtime % #animation+1]);
+        old_time = realtime;
+        defaultct:set_bool(false);
+        end
+    end
+end
     
     
     
@@ -653,15 +750,80 @@ end
         end
     end
     end
-    
+ --ragebot start
+local hs = gui.get_config_item("Rage>Aimbot>Aimbot>Hide shot")
+local dt = gui.get_config_item("Rage>Aimbot>Aimbot>Double tap")
+local limit = gui.get_config_item("Rage>Anti-Aim>Fakelag>Limit")
+
+-- cache fakelag limit
+local cache = {
+  backup = limit:get_int(),
+  override = false,
+}
+
+function RB()
+
+if OSFIXC:get_bool() then
+  if OSFIX:get_int() == 0 and not dt:get_bool() then
+    if hs:get_bool() then
+        limit:set_int(1)
+        cache.override = true
+    else
+        if cache.override then
+        limit:set_int(cache.backup)
+        cache.override = false
+        else
+        cache.backup = limit:get_int()
+        end
+      end
+    end
+  end
+
+  if OSFIXC:get_bool() then
+    if OSFIX:get_int() == 1 and not dt:get_bool() then
+      if hs:get_bool() then
+        limit:set_int(global_vars.tickcount % 18 >= 7 and 4 or 1)
+          cache.override = true
+      else
+          if cache.override then
+          limit:set_int(cache.backup)
+          cache.override = false
+          else
+          cache.backup = limit:get_int()
+          end
+        end
+      end
+    end
+
+if OSFIXC:get_bool() then
+    if OSFIX:get_int() == 2 and not dt:get_bool() then
+        if hs:get_bool() then
+            limit:set_int(6)
+            cache.override = true
+        else
+            if cache.override then
+            limit:set_int(cache.backup)
+            cache.override = false
+            else
+            cache.backup = limit:get_int()
+            end
+        end
+    end
+end
+end
     
     function on_create_move()
         AABUILDER()
+        RB()
     end
     
     function on_paint()
         on_menu_check()
         rollresolver()
         indicators_render()
+        sideindicator()
+        CT()
     end
-         
+ function on_shutdown()
+        limit:set_int(cache.backup)
+end

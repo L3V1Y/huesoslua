@@ -867,5 +867,4 @@ local function hitlogs(shot)
     end
  function on_shutdown()
         limit:set_int(cache.backup)
-        defensivecache:set_bool(defensivecache)
 end

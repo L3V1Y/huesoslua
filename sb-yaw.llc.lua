@@ -826,6 +826,32 @@ if OSFIXC:get_bool() then
     end
 end
 end
+local function hitlogs(shot)
+    if shot.manual then return end
+        local hitgroup_names = {"generic", "head", "chest", "stomach", "left arm", "right arm", "left leg", "right leg", "neck", "?", "gear"}
+        local p = entities.get_entity(shot.target)
+        local n = p:get_player_info()
+        local hitgroup = shot.server_hitgroup
+        local clienthitgroup = shot.client_hitgroup
+        local health = p:get_prop("m_iHealth")
+    
+            if deflogs:get_bool() then
+                if shot.server_damage > 0 then
+                    print( "sb-yaw | Registered shot to " , n.name  , "'s ", hitgroup_names[hitgroup + 1]," for " , shot.server_damage, " damage (hc=", math.floor(shot.hitchance), ", bt=", math.floor(shot.backtrack),")")
+                else
+                    print( "sb-yaw | Missed " , n.name  , "'s ", hitgroup_names[shot.client_hitgroup + 1]," due to ", shot.result,  " (hc=", math.floor(shot.hitchance), ", bt=", math.floor(shot.backtrack),")")
+                end
+            end
+    
+    end
+
+
+    function on_shot_registered(shot)
+        hitlogs(shot)
+    end
+
+
+    
     
     function on_create_move()
         AABUILDER()

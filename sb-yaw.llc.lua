@@ -1,7 +1,7 @@
 
 
 
---engine.exec("clear")
+--engine.exec("unbindall")
 utils.run_delayed(5, function()
     print("░██████╗  ██████╗░  ░░░░░░  ██╗░░░██╗  ░█████╗░  ░██╗░░░░░░░██╗")
     print("██╔════╝  ██╔══██╗  ░░░░░░  ╚██╗░██╔╝  ██╔══██╗  ░██║░░██╗░░██║")
@@ -137,7 +137,7 @@ utils.run_delayed(5, function()
     dfree = cmb("[D] Freestand fake", "lua>tab b", {"None", "Normal", "Opposite"})
     dfakejit = cb("[D] Flip fake with jitter", "lua>tab b")
     --visuals
-    indicators = cb("Enable SB-INDICATOR", "lua>tab b")
+    indicators = cmb("Indicators type", "lua>tab b", {"Pixel", "None"})
     colorcb = cb("Color", "lua>tab b")
     color = cp("lua>tab b>Color", true)
     sideind, mark = mc("Other features", "lua>tab b", {"Side indicators", "Script watermark"})
@@ -374,6 +374,20 @@ utils.run_delayed(5, function()
         end
     end
     dt = find("rage>aimbot>aimbot>double tap"):get_bool()
+function lagcomp()
+    defensive = find("rage>aimbot>aimbot>extend peek")
+    defensivecache = find("rage>aimbot>aimbot>extend peek"):get_bool()
+if brlc:get_bool() then
+    if dt then
+    if playerstate == 4 or playerstate == 5 then
+defensive:set_bool(global_vars.tickcount % 4 >= 2 and true or false)
+    else 
+        defensivecache:set_bool(defensivecache)
+end
+end
+end
+end
+end
     offset_scope = 0
     function indicators_render()
     center = render.align_center
@@ -386,8 +400,7 @@ utils.run_delayed(5, function()
         return Value < Min and Min or (Value > Max and Max or Value)
     end
     offset_scope = 0
-    if not indicators:get_bool() then return end
-   -- if indicators:get_bool() then
+    if indicators:get_int() == 0 then
         alpha2 = math.floor(math.abs(math.sin(global_vars.realtime) * 1) * 255)
             maintext = "sb-yaw"
             buildtext = ""--"[beta]"
@@ -503,9 +516,6 @@ end
     io = 0
     function sideindicator()
         dttkey = find("rage>aimbot>aimbot>Double tap"):get_bool()
-        lp1 = entities.get_entity(engine.get_local_player())
-        if not lp1 then return end
-        if not lp1:is_alive() then return end
         if sideind:get_bool() then
             if info.fatality.can_fastfire and dttkey then
             render.text(render.font_indicator, 10, y + 115 , "DT", render.color(255, 255, 255, 255), render.align_left, render.align_center)
@@ -816,6 +826,32 @@ if OSFIXC:get_bool() then
     end
 end
 end
+local function hitlogs(shot)
+    if shot.manual then return end
+        local hitgroup_names = {"generic", "head", "chest", "stomach", "left arm", "right arm", "left leg", "right leg", "neck", "?", "gear"}
+        local p = entities.get_entity(shot.target)
+        local n = p:get_player_info()
+        local hitgroup = shot.server_hitgroup
+        local clienthitgroup = shot.client_hitgroup
+        local health = p:get_prop("m_iHealth")
+    
+            if deflogs:get_bool() then
+                if shot.server_damage > 0 then
+                    print( "sb-yaw | Registered shot to " , n.name  , "'s ", hitgroup_names[hitgroup + 1]," for " , shot.server_damage, " damage (hc=", math.floor(shot.hitchance), ", bt=", math.floor(shot.backtrack),")")
+                else
+                    print( "sb-yaw | Missed " , n.name  , "'s ", hitgroup_names[shot.client_hitgroup + 1]," due to ", shot.result,  " (hc=", math.floor(shot.hitchance), ", bt=", math.floor(shot.backtrack),")")
+                end
+            end
+    
+    end
+
+
+    function on_shot_registered(shot)
+        hitlogs(shot)
+    end
+
+
+    
     
     function on_create_move()
         AABUILDER()
